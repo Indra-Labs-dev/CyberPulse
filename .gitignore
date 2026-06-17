@@ -1,0 +1,132 @@
+#################################################
+# GENERAL
+#################################################
+
+.env
+.env.*
+!.env.example
+
+*.log
+logs/
+*.sqlite
+*.db
+
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+.DS_Store
+Thumbs.db
+
+#################################################
+# PYTHON (BACKEND FASTAPI)
+#################################################
+
+venv/
+.venv/
+env/
+ENV/
+
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+alembic/versions/__pycache__/
+
+dist/
+build/
+*.egg-info/
+
+coverage.xml
+htmlcov/
+
+# Jupyter
+.ipynb_checkpoints/
+
+#################################################
+# FLUTTER (FRONTEND DESKTOP)
+#################################################
+
+**/build/
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+flutter_*.png
+
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# Android / iOS (même si desktop, Flutter génère parfois)
+android/.gradle/
+android/app/debug/
+android/app/profile/
+android/app/release/
+
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+
+#################################################
+# IDE / EDITORS
+#################################################
+
+.vscode/
+.idea/
+*.iml
+
+*.swp
+*.swo
+
+#################################################
+# DATABASE / LOCAL SERVICES
+#################################################
+
+mysql-data/
+redis-data/
+
+*.sql
+dump.sql
+
+#################################################
+# DOCKER (si jamais utilisé plus tard)
+#################################################
+
+docker-compose.override.yml
+
+#################################################
+# AI / LOCAL MODELS (Ollama etc.)
+#################################################
+
+models/
+*.gguf
+*.bin
+
+#################################################
+# REPORTS / EXPORTS (CyberPulse)
+#################################################
+
+reports/
+exports/
+generated_reports/
+*.pdf
+*.html
+
+#################################################
+# SECURITY / SECRETS
+#################################################
+
+*.pem
+*.key
+*.crt
+
+#################################################
+# TEMP FILES
+#################################################
+
+tmp/
+temp/
+*.tmp
+.cache/

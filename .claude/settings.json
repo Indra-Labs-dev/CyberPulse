@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd c:/CyberPulse/backend && ls -la 2>&1; ls frontend 2>&1; cat ../README.md 2>&1)",
+      "Read(//c//**)",
+      "PowerShell(python --version)",
+      "PowerShell(Get-Command python)",
+      "PowerShell(cd C:\\\\CyberPulse\\\\backend; $env:JWT_SECRET_KEY=\"test-secret\"; .\\\\.venv\\\\Scripts\\\\python.exe -m pytest -q 2>&1 | Select-Object -Last 100)",
+      "PowerShell(cd C:\\\\CyberPulse\\\\backend; $env:JWT_SECRET_KEY=\"test-secret\"; .\\\\.venv\\\\Scripts\\\\python.exe -m pytest -q 2>&1 | Select-Object -Last 150)",
+      "PowerShell(cd C:\\\\CyberPulse\\\\backend; $env:JWT_SECRET_KEY=\"test-secret\"; .\\\\.venv\\\\Scripts\\\\python.exe -m pytest -q 2>&1 | Select-Object -Last 60)",
+      "PowerShell(cd C:\\\\CyberPulse\\\\backend; $env:JWT_SECRET_KEY=\"test-secret\"; Start-Process -NoNewWindow -FilePath .\\\\.venv\\\\Scripts\\\\python.exe -ArgumentList \"-m uvicorn app.main:socket_app --port 8077\" -RedirectStandardOutput uvicorn_out.log -RedirectStandardError uvicorn_err.log; Start-Sleep -Seconds 4; try { $r = Invoke-WebRequest -Uri http://127.0.0.1:8077/api/v1/health -UseBasicParsing; Write-Output $r.Content } catch { Write-Output \"FAILED: $_\" }; Get-Content uvicorn_err.log -Tail 40)",
+      "PowerShell(cd C:\\\\CyberPulse\\\\backend; Get-Process python -ErrorAction SilentlyContinue | Where-Object {$_.Id -ne $PID} | Stop-Process -Force -ErrorAction SilentlyContinue; Remove-Item uvicorn_out.log,uvicorn_err.log -ErrorAction SilentlyContinue; Write-Output done)",
+      "PowerShell(cd C:\\\\CyberPulse\\\\backend; $env:JWT_SECRET_KEY=\"test-secret\"; .\\\\.venv\\\\Scripts\\\\python.exe smoke_test.py)",
+      "Bash(rm -f smoke_test.py)",
+      "Bash(rm -rf storage/reports/*.pdf)"
+    ]
+  }
+}
