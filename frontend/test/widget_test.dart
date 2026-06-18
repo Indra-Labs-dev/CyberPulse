@@ -1,3 +1,4 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -8,7 +9,7 @@ void main() {
     await tester.pumpWidget(const ProviderScope(child: CyberPulseApp()));
     await tester.pumpAndSettle();
 
-    expect(find.text('CyberPulse'), findsWidgets);
+    expect(find.image(const AssetImage('assets/images/logo.png')), findsWidgets);
     expect(find.text('Se connecter'), findsOneWidget);
   });
 }

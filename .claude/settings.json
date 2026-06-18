@@ -31,10 +31,14 @@
       "Bash(rm -f app_run.log app_run2.log screenshot_login.png screenshot_check2.png screenshot_check3.png)",
       "Bash(rm -f uvicorn_out.log uvicorn_err.log)",
       "Bash(cd /c/CyberPulse/backend && rm -f uvicorn_out.log uvicorn_err.log && echo done)",
-      "Bash(flutter test *)"
+      "Bash(flutter test *)",
+      "Bash(find / -ipath \"*system_tray-2*\" -name \"*.dart\" 2>/dev/null | grep -v \"test\" | head -50)",
+      "Bash(dart run *)",
+      "Bash(cd /c/CyberPulse/frontend && rm -f app_run_verify.log screenshot_logo_check.png screenshot_tray_corner.png)"
     ],
     "additionalDirectories": [
-      "c:\\c\\CyberPulse\\backend"
+      "c:\\c\\CyberPulse\\backend",
+      "c:\\c\\CyberPulse\\frontend"
     ]
   }
 }

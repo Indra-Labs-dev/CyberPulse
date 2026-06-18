@@ -57,21 +57,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(Icons.shield_outlined, color: AppColors.neonBlue, size: 32),
-                          const SizedBox(width: 12),
-                          Text(
-                            'CyberPulse',
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineSmall
-                                ?.copyWith(color: AppColors.neonBlue, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 4),
+                      Image.asset('assets/images/logo.png', height: 96),
+                      const SizedBox(height: 12),
                       Text(
                         'Centre de veille et d\'analyse cybersécurité',
                         textAlign: TextAlign.center,

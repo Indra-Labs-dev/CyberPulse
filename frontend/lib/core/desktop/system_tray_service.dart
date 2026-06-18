@@ -18,7 +18,7 @@ class SystemTrayService {
 
     final iconPath = Platform.isWindows
         ? 'windows/runner/resources/app_icon.ico'
-        : 'assets/images/app_icon.png';
+        : 'assets/images/logo.png';
 
     try {
       await _systemTray.initSystemTray(
@@ -36,9 +36,27 @@ class SystemTrayService {
       ]);
       await _systemTray.setContextMenu(menu);
 
+      // The plugin never shows the context menu on its own: a left click is
+      // expected to toggle the window, and a right click must explicitly
+      // trigger `popUpContextMenu()` (Windows convention; macOS/Linux tray
+      // menus open on either click, so we show the menu there on left click
+      // too and keep show-on-click for the window via double-click).
       _systemTray.registerSystemTrayEventHandler((eventName) {
-        if (eventName == kSystemTrayEventClick) {
-          windowManager.show();
+        switch (eventName) {
+          case kSystemTrayEventClick:
+            if (Platform.isWindows) {
+              windowManager.show();
+            } else {
+              _systemTray.popUpContextMenu();
+            }
+          case kSystemTrayEventRightClick:
+            if (Platform.isWindows) {
+              _systemTray.popUpContextMenu();
+            } else {
+              windowManager.show();
+            }
+          case kSystemTrayEventDoubleClick:
+            windowManager.show();
         }
       });
 

@@ -52,7 +52,7 @@ class AppShell extends ConsumerWidget {
               padding: const EdgeInsets.symmetric(vertical: 16),
               child: Column(
                 children: [
-                  const Icon(Icons.shield_outlined, color: AppColors.neonBlue, size: 28),
+                  Image.asset('assets/images/logo.png', width: 36, height: 36),
                   const SizedBox(height: 8),
                   const ConnectionStatusIndicator(),
                 ],
