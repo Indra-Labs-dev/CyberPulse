@@ -34,7 +34,12 @@
       "Bash(flutter test *)",
       "Bash(find / -ipath \"*system_tray-2*\" -name \"*.dart\" 2>/dev/null | grep -v \"test\" | head -50)",
       "Bash(dart run *)",
-      "Bash(cd /c/CyberPulse/frontend && rm -f app_run_verify.log screenshot_logo_check.png screenshot_tray_corner.png)"
+      "Bash(cd /c/CyberPulse/frontend && rm -f app_run_verify.log screenshot_logo_check.png screenshot_tray_corner.png)",
+      "PowerShell(cd C:\\\\CyberPulse\\\\backend; $env:JWT_SECRET_KEY=\"test-secret\"; .\\\\.venv\\\\Scripts\\\\python.exe -c \"from app.main import app; print\\('OK'\\); print\\(len\\(app.routes\\)\\)\")",
+      "PowerShell(cd C:\\\\CyberPulse\\\\backend; $env:JWT_SECRET_KEY=\"test-secret\"; .\\\\.venv\\\\Scripts\\\\python.exe -m pytest -q 2>&1 | Select-Object -Last 30)",
+      "PowerShell(cd C:\\\\CyberPulse\\\\backend; $env:JWT_SECRET_KEY=\"test-secret\"; .\\\\.venv\\\\Scripts\\\\python.exe smoke_test_batch1.py 2>&1 | Select-String -Pattern \"cve sync|mitre|incident\")",
+      "PowerShell(cd C:\\\\CyberPulse\\\\backend; $env:JWT_SECRET_KEY=\"test-secret\"; .\\\\.venv\\\\Scripts\\\\python.exe -m pytest -q 2>&1 | Select-Object -Last 10)",
+      "PowerShell(cd C:\\\\CyberPulse\\\\backend; $env:JWT_SECRET_KEY=\"test-secret\"; .\\\\.venv\\\\Scripts\\\\python.exe smoke_test_batch2.py 2>&1 | Select-String -Pattern \"cve sync|scrape|actors|detect|list campaigns|campaign detail|graph|timeline|no campaigns\")"
     ],
     "additionalDirectories": [
       "c:\\c\\CyberPulse\\backend",

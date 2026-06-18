@@ -31,6 +31,12 @@ class Settings(BaseSettings):
 
     reports_dir: str = "./storage/reports"
 
+    # OSINT module — optional third-party API keys. When unset, the OSINT
+    # service returns a structured placeholder result instead of failing.
+    hibp_api_key: str = ""
+    shodan_api_key: str = ""
+    github_token: str = ""
+
     @property
     def cors_origins_list(self) -> list[str]:
         return [origin.strip() for origin in self.cors_origins.split(",") if origin.strip()]

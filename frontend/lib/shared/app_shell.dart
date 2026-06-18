@@ -20,6 +20,13 @@ const _navItems = [
   _NavItem('Articles & Blogs', Icons.rss_feed_outlined, '/articles'),
   _NavItem('Watchlist', Icons.visibility_outlined, '/watchlist'),
   _NavItem('Alertes', Icons.notifications_outlined, '/alerts'),
+  _NavItem('MITRE ATT&CK', Icons.grid_view_outlined, '/mitre'),
+  _NavItem('Corrélation', Icons.hub_outlined, '/correlation'),
+  _NavItem('OSINT', Icons.travel_explore_outlined, '/osint'),
+  _NavItem('Playbooks', Icons.bolt_outlined, '/playbooks'),
+  _NavItem('Scanner', Icons.radar, '/scanner'),
+  _NavItem('Signatures', Icons.fingerprint_outlined, '/signatures'),
+  _NavItem('Incidents', Icons.report_problem_outlined, '/incidents'),
   _NavItem('Rapports', Icons.description_outlined, '/reports'),
   _NavItem('Paramètres', Icons.settings_outlined, '/settings'),
 ];

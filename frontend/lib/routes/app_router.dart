@@ -11,7 +11,16 @@ import '../features/auth/presentation/login_screen.dart';
 import '../features/auth/presentation/register_screen.dart';
 import '../features/cve/presentation/cve_detail_screen.dart';
 import '../features/cve/presentation/cve_list_screen.dart';
+import '../features/correlation/presentation/campaign_detail_screen.dart';
+import '../features/correlation/presentation/campaigns_screen.dart';
 import '../features/dashboard/presentation/dashboard_screen.dart';
+import '../features/incidents/presentation/incident_detail_screen.dart';
+import '../features/incidents/presentation/incidents_screen.dart';
+import '../features/mitre/presentation/mitre_screen.dart';
+import '../features/osint/presentation/osint_screen.dart';
+import '../features/playbooks/presentation/playbooks_screen.dart';
+import '../features/scanner/presentation/scanner_screen.dart';
+import '../features/signatures/presentation/signatures_screen.dart';
 import '../features/reports/presentation/report_preview_screen.dart';
 import '../features/reports/presentation/reports_screen.dart';
 import '../features/settings/presentation/settings_screen.dart';
@@ -77,6 +86,33 @@ final routerProvider = Provider<GoRouter>((ref) {
                     title: extra['title'] as String,
                   );
                 },
+              ),
+            ],
+          ),
+          GoRoute(path: '/mitre', builder: (context, state) => const MitreScreen()),
+          GoRoute(path: '/osint', builder: (context, state) => const OsintScreen()),
+          GoRoute(path: '/playbooks', builder: (context, state) => const PlaybooksScreen()),
+          GoRoute(path: '/scanner', builder: (context, state) => const ScannerScreen()),
+          GoRoute(path: '/signatures', builder: (context, state) => const SignaturesScreen()),
+          GoRoute(
+            path: '/correlation',
+            builder: (context, state) => const CampaignsScreen(),
+            routes: [
+              GoRoute(
+                path: ':id',
+                builder: (context, state) =>
+                    CampaignDetailScreen(campaignId: int.parse(state.pathParameters['id']!)),
+              ),
+            ],
+          ),
+          GoRoute(
+            path: '/incidents',
+            builder: (context, state) => const IncidentsScreen(),
+            routes: [
+              GoRoute(
+                path: ':id',
+                builder: (context, state) =>
+                    IncidentDetailScreen(incidentId: int.parse(state.pathParameters['id']!)),
               ),
             ],
           ),
