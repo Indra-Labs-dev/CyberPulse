@@ -12,7 +12,29 @@
       "PowerShell(cd C:\\\\CyberPulse\\\\backend; Get-Process python -ErrorAction SilentlyContinue | Where-Object {$_.Id -ne $PID} | Stop-Process -Force -ErrorAction SilentlyContinue; Remove-Item uvicorn_out.log,uvicorn_err.log -ErrorAction SilentlyContinue; Write-Output done)",
       "PowerShell(cd C:\\\\CyberPulse\\\\backend; $env:JWT_SECRET_KEY=\"test-secret\"; .\\\\.venv\\\\Scripts\\\\python.exe smoke_test.py)",
       "Bash(rm -f smoke_test.py)",
-      "Bash(rm -rf storage/reports/*.pdf)"
+      "Bash(rm -rf storage/reports/*.pdf)",
+      "Bash(flutter --version)",
+      "Bash(flutter config *)",
+      "Bash(flutter pub *)",
+      "Bash(flutter doctor *)",
+      "Bash(flutter analyze *)",
+      "Bash(flutter build *)",
+      "PowerShell(cd C:\\\\CyberPulse\\\\backend; $env:JWT_SECRET_KEY=\"dev-secret-key\"; Start-Process -NoNewWindow -FilePath .\\\\.venv\\\\Scripts\\\\python.exe -ArgumentList \"-m uvicorn app.main:socket_app --port 8000\" -RedirectStandardOutput uvicorn_out.log -RedirectStandardError uvicorn_err.log; Start-Sleep -Seconds 4; try { $r = Invoke-WebRequest -Uri http://127.0.0.1:8000/api/v1/health -UseBasicParsing; Write-Output $r.Content } catch { Write-Output \"FAILED: $_\" })",
+      "PowerShell(cd C:\\\\CyberPulse\\\\backend; $env:JWT_SECRET_KEY=\"dev-secret-key\"; Start-Process -NoNewWindow -FilePath .\\\\.venv\\\\Scripts\\\\python.exe -ArgumentList \"-m uvicorn app.main:socket_app --port 8090\" -RedirectStandardOutput uvicorn_out.log -RedirectStandardError uvicorn_err.log; Start-Sleep -Seconds 4; try { $r = Invoke-WebRequest -Uri http://127.0.0.1:8090/api/v1/health -UseBasicParsing; Write-Output $r.Content } catch { Write-Output \"FAILED: $_\" })",
+      "Bash(nohup ./build/windows/x64/runner/Debug/frontend.exe --dart-define=API_BASE_URL=http://127.0.0.1:8090 --dart-define=SOCKET_URL=http://127.0.0.1:8090)",
+      "Bash(echo \"launched, pid: $!\")",
+      "PowerShell(Get-Process frontend -ErrorAction SilentlyContinue)",
+      "PowerShell(Stop-Process -Force -ErrorAction SilentlyContinue)",
+      "Bash(nohup ./build/windows/x64/runner/Debug/frontend.exe)",
+      "Bash(grep -v \"^$\")",
+      "PowerShell(cd C:\\\\CyberPulse\\\\backend; $env:JWT_SECRET_KEY=\"dev-secret-key\"; .\\\\.venv\\\\Scripts\\\\python.exe -m alembic upgrade head 2>&1)",
+      "Bash(rm -f app_run.log app_run2.log screenshot_login.png screenshot_check2.png screenshot_check3.png)",
+      "Bash(rm -f uvicorn_out.log uvicorn_err.log)",
+      "Bash(cd /c/CyberPulse/backend && rm -f uvicorn_out.log uvicorn_err.log && echo done)",
+      "Bash(flutter test *)"
+    ],
+    "additionalDirectories": [
+      "c:\\c\\CyberPulse\\backend"
     ]
   }
 }
