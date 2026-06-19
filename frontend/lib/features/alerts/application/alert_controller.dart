@@ -7,6 +7,7 @@ import '../../../core/notifications/notification_service.dart';
 import '../../../core/providers/core_providers.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../models/alert.dart';
+import '../../settings/application/settings_controller.dart';
 import '../data/alert_service.dart';
 
 final alertServiceProvider = Provider<AlertService>((ref) {
@@ -15,7 +16,7 @@ final alertServiceProvider = Provider<AlertService>((ref) {
 
 final alertControllerProvider =
     StateNotifierProvider<AlertController, AsyncValue<List<CyberAlert>>>((ref) {
-  final controller = AlertController(ref.watch(alertServiceProvider));
+  final controller = AlertController(ref.watch(alertServiceProvider), ref);
   final socket = ref.watch(webSocketServiceProvider);
   final subscription = socket.onAlert.listen(controller.handleRealtimeAlert);
   ref.onDispose(subscription.cancel);
@@ -29,11 +30,12 @@ final unacknowledgedAlertCountProvider = Provider<int>((ref) {
 });
 
 class AlertController extends StateNotifier<AsyncValue<List<CyberAlert>>> {
-  AlertController(this._service) : super(const AsyncValue.loading()) {
+  AlertController(this._service, this._ref) : super(const AsyncValue.loading()) {
     refresh();
   }
 
   final AlertService _service;
+  final Ref _ref;
 
   Future<void> refresh() async {
     state = const AsyncValue.loading();
@@ -59,6 +61,10 @@ class AlertController extends StateNotifier<AsyncValue<List<CyberAlert>>> {
     );
 
     state = state.whenData((alerts) => [incoming, ...alerts]);
+
+    // Mode Focus: the alert is still recorded above, just not surfaced as a
+    // toast/native notification while the analyst is concentrating.
+    if (_ref.read(focusModeProvider)) return;
 
     NotificationService.instance.showAlert(
       title: 'Alerte ${incoming.severity}',

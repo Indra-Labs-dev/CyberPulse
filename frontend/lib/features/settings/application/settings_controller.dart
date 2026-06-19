@@ -56,3 +56,8 @@ class NotificationsEnabledController extends StateNotifier<bool> {
     await prefs.setBool(_notificationsEnabledKey, enabled);
   }
 }
+
+/// Mode Focus: when active, realtime alert toasts/native notifications are
+/// suppressed so an analyst can work without interruption. Alerts are still
+/// recorded in the Alert Center — nothing is lost, just silenced.
+final focusModeProvider = StateProvider<bool>((ref) => false);

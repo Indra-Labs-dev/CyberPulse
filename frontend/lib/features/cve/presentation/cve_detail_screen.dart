@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../widgets/severity_badge.dart';
+import '../../collaboration/presentation/comments_section.dart';
 import '../application/cve_providers.dart';
 
 class CveDetailScreen extends ConsumerWidget {
@@ -84,7 +85,9 @@ class CveDetailScreen extends ConsumerWidget {
                       child: Text(r, style: const TextStyle(color: AppColors.neonBlue)),
                     ),
                   ),
+                  const SizedBox(height: 24),
                 ],
+                CommentsSection(entityType: 'CVE', entityId: cve.id),
               ],
             ),
           ),

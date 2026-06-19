@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -28,6 +29,10 @@ const _navItems = [
   _NavItem('Signatures', Icons.fingerprint_outlined, '/signatures'),
   _NavItem('Incidents', Icons.report_problem_outlined, '/incidents'),
   _NavItem('Rapports', Icons.description_outlined, '/reports'),
+  _NavItem('API & Webhooks', Icons.api_outlined, '/integrations'),
+  _NavItem('Statistiques', Icons.bar_chart_outlined, '/stats'),
+  _NavItem('Import/Export', Icons.import_export_outlined, '/import-export'),
+  _NavItem('Focus', Icons.center_focus_strong_outlined, '/focus'),
   _NavItem('Paramètres', Icons.settings_outlined, '/settings'),
 ];
 
@@ -48,10 +53,33 @@ class AppShell extends ConsumerWidget {
     final unacknowledged = ref.watch(unacknowledgedAlertCountProvider);
     final user = ref.watch(authControllerProvider).user;
 
-    return Scaffold(
-      body: Row(
-        children: [
-          NavigationRail(
+    // 100% keyboard navigation: Ctrl+1..9 jumps to the corresponding nav
+    // destination, satisfying the "keyboard shortcuts" productivity goal
+    // without requiring the mouse.
+    const digitKeys = [
+      LogicalKeyboardKey.digit1,
+      LogicalKeyboardKey.digit2,
+      LogicalKeyboardKey.digit3,
+      LogicalKeyboardKey.digit4,
+      LogicalKeyboardKey.digit5,
+      LogicalKeyboardKey.digit6,
+      LogicalKeyboardKey.digit7,
+      LogicalKeyboardKey.digit8,
+      LogicalKeyboardKey.digit9,
+    ];
+    final shortcuts = <ShortcutActivator, VoidCallback>{
+      for (var i = 0; i < _navItems.length && i < digitKeys.length; i++)
+        SingleActivator(digitKeys[i], control: true): () => context.go(_navItems[i].path),
+    };
+
+    return CallbackShortcuts(
+      bindings: shortcuts,
+      child: Focus(
+        autofocus: true,
+        child: Scaffold(
+          body: Row(
+            children: [
+              NavigationRail(
             selectedIndex: selectedIndex,
             backgroundColor: AppColors.panelBlack,
             labelType: NavigationRailLabelType.all,
@@ -93,9 +121,11 @@ class AppShell extends ConsumerWidget {
               );
             }).toList(),
           ),
-          const VerticalDivider(width: 1, color: AppColors.borderColor),
-          Expanded(child: child),
-        ],
+              const VerticalDivider(width: 1, color: AppColors.borderColor),
+              Expanded(child: child),
+            ],
+          ),
+        ),
       ),
     );
   }

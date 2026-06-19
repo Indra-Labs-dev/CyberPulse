@@ -14,13 +14,17 @@ import '../features/cve/presentation/cve_list_screen.dart';
 import '../features/correlation/presentation/campaign_detail_screen.dart';
 import '../features/correlation/presentation/campaigns_screen.dart';
 import '../features/dashboard/presentation/dashboard_screen.dart';
+import '../features/import_export/presentation/import_export_screen.dart';
 import '../features/incidents/presentation/incident_detail_screen.dart';
 import '../features/incidents/presentation/incidents_screen.dart';
+import '../features/integrations/presentation/integrations_screen.dart';
 import '../features/mitre/presentation/mitre_screen.dart';
 import '../features/osint/presentation/osint_screen.dart';
 import '../features/playbooks/presentation/playbooks_screen.dart';
+import '../features/productivity/presentation/focus_screen.dart';
 import '../features/scanner/presentation/scanner_screen.dart';
 import '../features/signatures/presentation/signatures_screen.dart';
+import '../features/stats/presentation/stats_screen.dart';
 import '../features/reports/presentation/report_preview_screen.dart';
 import '../features/reports/presentation/reports_screen.dart';
 import '../features/settings/presentation/settings_screen.dart';
@@ -116,6 +120,10 @@ final routerProvider = Provider<GoRouter>((ref) {
               ),
             ],
           ),
+          GoRoute(path: '/integrations', builder: (context, state) => const IntegrationsScreen()),
+          GoRoute(path: '/focus', builder: (context, state) => const FocusScreen()),
+          GoRoute(path: '/stats', builder: (context, state) => const StatsScreen()),
+          GoRoute(path: '/import-export', builder: (context, state) => const ImportExportScreen()),
           GoRoute(path: '/settings', builder: (context, state) => const SettingsScreen()),
         ],
       ),

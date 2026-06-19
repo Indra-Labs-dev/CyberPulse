@@ -7,6 +7,7 @@ import '../../../widgets/kpi_card.dart';
 import '../../../widgets/severity_badge.dart';
 import '../../alerts/application/alert_controller.dart';
 import '../../articles/application/article_controller.dart';
+import '../../collaboration/application/collaboration_providers.dart';
 import '../../cve/application/cve_providers.dart';
 
 class _SeverityCount {
@@ -23,6 +24,7 @@ class DashboardScreen extends ConsumerWidget {
     final cvesAsync = ref.watch(cveListProvider);
     final alertsAsync = ref.watch(alertControllerProvider);
     final articlesAsync = ref.watch(articleControllerProvider);
+    final activityAsync = ref.watch(activityFeedProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -207,6 +209,35 @@ class DashboardScreen extends ConsumerWidget {
                               }).toList(),
                             ),
                       error: (_, _) => const Text('Erreur de chargement des articles'),
+                      loading: () => const Center(child: CircularProgressIndicator()),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 24),
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Activité de l\'équipe', style: Theme.of(context).textTheme.titleMedium),
+                    const SizedBox(height: 12),
+                    activityAsync.when(
+                      data: (entries) => entries.isEmpty
+                          ? const Text('Aucune activité récente')
+                          : Column(
+                              children: entries.take(8).map((entry) {
+                                return ListTile(
+                                  dense: true,
+                                  contentPadding: EdgeInsets.zero,
+                                  leading: const Icon(Icons.history, color: AppColors.securityGreen, size: 18),
+                                  title: Text(entry.description, style: const TextStyle(fontSize: 13)),
+                                );
+                              }).toList(),
+                            ),
+                      error: (_, _) => const Text('Erreur de chargement de l\'activité'),
                       loading: () => const Center(child: CircularProgressIndicator()),
                     ),
                   ],

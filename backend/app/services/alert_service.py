@@ -1,9 +1,14 @@
 from app.core.exceptions import ForbiddenError, NotFoundError
+from app.core.logging import get_logger
 from app.models.alert import Alert
 from app.models.enums import AlertStatus
 from app.repositories.alert_repo import AlertRepository
+from app.repositories.webhook_repo import WebhookRepository
 from app.schemas.alert import AlertCreate
+from app.services.webhook_service import WebhookService
 from app.websocket.manager import manager
+
+logger = get_logger(__name__)
 
 
 class AlertService:
@@ -27,6 +32,14 @@ class AlertService:
                     "message": alert.message,
                 }
             )
+            try:
+                webhook_service = WebhookService(WebhookRepository(self.alert_repo.session))
+                await webhook_service.dispatch_event(
+                    "alert.created",
+                    {"severity": alert.severity.value, "type": alert.type.value, "message": alert.message},
+                )
+            except Exception as exc:
+                logger.warning("Webhook dispatch failed for alert #%s: %s", alert.id, exc)
         return alert
 
     async def acknowledge(self, alert_id: int, user_id: int) -> Alert:
